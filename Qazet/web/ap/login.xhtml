@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome-ie.css" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'/>
+        <link href="/JavaServerFaces/faces/javax.faces.resource/cssLayout.css?ln=css" rel="stylesheet" type="text/css" />
+        <title>Login Page</title>
+    </h:head>
+    <h:body style="background-color: #45484d; background-image:url('../resources/designtools/backgrounds/bbf.jpg');position:absolute;height: 100%;"> 
+        <h:outputStylesheet name="cssLayout.css" library="css"/>
+      
+          <div class="backBack">
+            
+            
+        </div>
+        <center>
+        <div id="div_login" >
+            <h:form id="form_login">
+                <h:panelGrid columns="2" id="panel_login">
+                    <div style="color: #cccccc;font-size: 17px;margin-right: 5px;"><i class="icon-user"></i></div>
+                    <p:inputText  value="#{AdMB.username}"/> 
+                    <div style="color: #cccccc;font-size: 17px;margin-right: 5px;"><i class="icon-key"></i></div>
+                    <p:password  value="#{AdMB.password5}"/> 
+                    <p:outputLabel value=" "/>
+                    <p:commandButton action="#{AdMB.login()}" update=":form_login:panel_login" value="login" ajax="false"/>
+                </h:panelGrid>
+            </h:form>
+            
+        </div>
+      </center>
+    
+    </h:body>
+</html>

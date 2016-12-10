@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="Qazet" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <non-jta-data-source>Qazet</non-jta-data-source>
+    <class>pojoes.Article</class>
+    <class>pojoes.Topic</class>
+    <class>pojoes.Link</class>
+    <class>pojoes.Video</class>
+    <class>pojoes.Poll</class>
+    <class>pojoes.Slide</class>
+    <class>pojoes.Admin</class>
+    <class>pojoes.Image</class>
+    <class>pojoes.WebSite</class>
+    <class>pojoes.News</class>
+    <class>pojoes.Advertisement</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.connection.useUnicode" value="true"/>
+      <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
+    </properties>
+  </persistence-unit>
+</persistence>

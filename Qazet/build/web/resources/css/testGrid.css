@@ -1,0 +1,10 @@
+.wrapper {	 
+    width: 90%;
+    margin: 0 auto 0 auto;
+    display: ~"-ms-grid"; /* escaped for the LESS parser */
+    -ms-grid-columns: ~"1fr (4.25fr 1fr)[6]"; /* escaped for the LESS parser */
+    -ms-grid-rows: ~"(auto 20px)[40]"; /* escaped for the LESS parser */
+}
+.grid1 { .position(1,1,1,1); } 
+.grid2 { .position(2,1,1,1); } 
+/* ... see example for all declarations ... */

@@ -1,0 +1,109 @@
+/* 
+    Document   : index
+    Created on : Jul 23, 2013, 5:13:57 PM
+    Author     : Farid
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+/*Header css*/
+            #table_rightContent{
+}
+
+  .div_topVideos{
+                width: 320px;
+                color: #4e5759;
+            }
+            
+            .div_topVideos div{
+                max-width: 320px;
+                color: #4e5759;
+            }
+            
+            .div_topVideos b{
+                font-size: 13px;
+                color: #cccccc
+            }
+            
+            .div_topVideoHeader{
+                
+                position: absolute;
+                top:-150px;
+            }
+            
+            .img_topVideo{
+                
+                position: relative;
+                z-index: 2
+            }
+            
+            .img_topVideoIcon{
+                
+                position: absolute;
+                z-index: 3;
+                top:0px;
+                min-width: 290px;
+                min-height: 50px;
+                max-height: 70px;
+                padding: 5px 5px; 
+                background-color: rgba(0,0,0,0.4);
+                margin: 0px 10px;
+            }
+            
+            .img_topVideoIcon:hover{
+                
+               opacity: 0.5;
+               cursor: pointer;
+            }
+            
+            
+.td_header div{
+    margin: 1em 0 0.5em 0em;
+    padding-left: 0.5em ;
+    font-weight: 250;
+    text-transform: uppercase;
+    color: #4e5759;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    line-height: 44px;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+    border-bottom: 1px solid #4e5759;
+    -webkit-box-shadow: 0 8px 6px -6px silver;
+    -moz-box-shadow: 0 8px 6px -6px silver;
+     box-shadow: 0 8px 6px -6px silver;
+}
+
+.td_data{
+    padding: 2px 0px;
+    border: 1px solid #AFAFAF;
+}
+
+.td_ads div{
+    border: 1px solid #AFAFAF;
+    margin-top:10px;
+    padding: 0px 0px 0px 0px;
+}
+
+.td_ads div img, .td_ads div object{
+    height: 250px;
+    width: 250px;
+    border: 1px solid #4e5759;
+    margin: 29px;
+    
+}
+
+.table_nn
+{ width: 320px;
+    color: #303030;
+     margin-bottom: 5px;
+     font-size: 14px;
+ }
+ .table_nn:hover
+{ cursor: pointer;
+ 
+ }
+ 
+ .table_nn .name
+{ 
+ }

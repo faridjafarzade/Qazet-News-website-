@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome-ie.css" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'/>
+        <link href="/JavaServerFaces/faces/javax.faces.resource/cssLayout.css?ln=css" rel="stylesheet" type="text/css" />
+        <title>Admin Page</title>
+    </h:head>
+    <h:body style="background-color: #45484d;background-image:url('../resources/designtools/backgrounds/13.jpg');position: relative;height: 100%;"> 
+
+        <h:outputStylesheet name="cssLayout.css" library="css"/>
+        <div id="div_header" >
+            <center>
+                <table  id="table_header">
+                    <tr>
+                        <td> 
+                            <a href="admins.xhtml">
+                                <div><i class="icon-user"></i></div>
+                                <div>Admins</div>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="topics.xhtml">
+                                <div><i class="icon-folder-close"></i></div>
+                                <div>Topics</div>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="articles.xhtml">
+                                <div><i class="icon-pencil"></i></div>
+                                <div>Articles</div>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="links.xhtml">
+                                <div><i class="icon-link"></i></div>
+                                <div>Links</div>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="videos.xhtml">
+                                <div><i class="icon-file"></i></div>
+                                <div>Videous</div>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="slides.xhtml">
+                                <div><i class="icon-picture"></i></div>
+                                <div>slides</div>
+                            </a>
+                        </td>
+                        <td> <a href="polles.xhtml">
+                                <div><i class="icon-check"></i>
+                                </div><div>polls</div>
+                            </a>
+                        </td>
+                        <td> <a href="advertisement.xhtml">
+                                <div><i class="icon-barcode"></i>
+                                </div><div>Advertisements</div>
+                            </a>
+                        </td>
+                        <td> <a href="images.xhtml">
+                                <div><i class="icon-picture"></i>
+                                </div><div>Images</div>
+                            </a>
+                        </td>
+                        <td> 
+                            <h:form>
+                                <p:commandLink action="#{AdMB.logout()}" style="margin-right:20px;" ajax="false">  
+                                    <div><i class="icon-lock"></i></div>
+                                    <div>Logout</div> 
+                                </p:commandLink>
+                            </h:form>
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </div>
+        <div id="div_UserInformation">
+            <center>
+                <table>
+                    <tr>
+                        <td style="font-size: 85px;color: #cccccc;">
+                            <center>
+                                <img src="../resources/designtools/icons/user2.png" style="max-height: 80px;"/>
+                            </center>
+                        </td>
+                    </tr> 
+                    <tr>
+                        <center>
+                            <td style="font-size: 16px"><h:outputLabel value="#{AdMB.currentAdmin.name} #{AdMB.currentAdmin.email}"/></td>
+                        </center>
+                    </tr>
+                </table>
+            </center>
+        </div>
+        <center>
+            <h:form id="form_infoWS" enctype="multipart/form-data">
+                <p:panel id="informationPanel" header="About WebSite" style="background-color: #cccccc;border-color:rgba(0,0,0,0.0);width: 700px;margin-left: auto;margin-top: 25px; margin-right: auto;"  visible="#{WMB.voip}" >
+                    <h:panelGrid columns="2" style="margin-top:10px"> 
+                        <h:outputLabel value="Name:"/>
+                        <h:outputLabel value="#{WMB.ws.name}" />
+                        <h:outputLabel value="ShortName:"/>
+                        <h:outputLabel value="#{WMB.ws.shortName}" />
+                        <h:outputLabel value="info:"/>
+                        <a href="../info.xhtml"> Show </a>
+                        <h:outputLabel value="contacts:"/>
+                        <a href="../contacts.xhtml"> Show </a>
+                        <h:outputLabel value="Banner:"/>
+                        <p:graphicImage value="../resources/Images/#{WMB.ws.banner}" style="max-width:500px;margin: 10px"/>
+                        <h:outputLabel value="Logo:"/>
+                        <p:graphicImage value="../resources/Images/#{WMB.ws.logo}" style="max-height:70px;margin: 10px"/>
+                        <h:outputLabel value="White Logo (is used in footer):"/>
+                        <p:graphicImage value="../resources/Images/#{WMB.ws.whiteLogo}" style="max-height:70px;margin: 10px"/>
+                        <p:commandButton value="Edit"  action="#{WMB.showEditPanel()}" ajax="false" update=":form_editWS:EditPanel,:form_infoWS:InformationPanel"/>    
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_editWS" enctype="multipart/form-data">
+                <p:panel id="EditPanel" header="Edit Information" styleClass="panel_index"  visible="#{WMB.voep}" >
+                    <h:panelGrid columns="2" style="margin-top:10px" id="pg_editWS"> 
+                      <h:outputLabel value="Name:"/>
+                        <h:inputText value="#{WMB.ws.name}" />
+                        <h:outputLabel value="ShortName:"/>
+                        <h:inputText value="#{WMB.ws.shortName}" />
+                        <h:outputLabel value="Title:"/>
+                        <h:inputText value="#{WMB.ws.title}" />
+                        <h:outputLabel value="Key Words:"/>
+                        <h:inputTextarea value="#{WMB.ws.keyWords}" />
+                        <h:outputLabel value="info:"/>
+                        <p:editor id="editor" value="#{WMB.ws.information}" width="600"/> 
+                        <h:outputLabel value="contacts:"/>
+                        <p:editor id="editor2" value="#{WMB.ws.contacts}" width="600"/>  
+                        <h:outputLabel value="Current Banner:"/>
+                        <p:graphicImage value="../resources/Images/#{WMB.ws.banner}" style="max-width:500px"/>
+                        <h:outputLabel value="Change:"/>
+                        <p:fileUpload mode="simple" value="#{WMB.file}"  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/" update=":form_editWS:EditPanel,:form_infoWS:InformationPanel"/> 
+                        <h:outputLabel value="Current Logo:"/>
+                        <p:graphicImage value="../resources/Images/#{WMB.ws.logo}" style="max-height:70px"/>
+                        <h:outputLabel value="Change:"/>
+                        <p:fileUpload mode="simple" value="#{WMB.file2}"  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/" update=":form_editWS:EditPanel,:form_infoWS:InformationPanel"/> 
+                        <h:outputLabel value="Current White Logo (is used in footer):"/>
+                        <p:graphicImage value="../resources/Images/#{WMB.ws.whiteLogo}" style="max-height:70px"/>
+                        <h:outputLabel value="Change:"/>
+                        <p:fileUpload mode="simple" value="#{WMB.file3}"  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/" update=":form_editWS:EditPanel,:form_infoWS:InformationPanel"/> 
+                        <p:commandButton value="Edit"  action="#{WMB.editWebsite()}" ajax="false" update=":form_editWS:EditPanel,:form_infoWS:InformationPanel"/>    
+                    </h:panelGrid>
+                </p:panel>
+
+            </h:form>
+            
+             
+            <h:form id="form_editTopArticles">
+                <p:panel   id="panel_editTopArticles" styleClass="panel_index">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Top Articles 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles1.value}" itemLabel="#{WMB.topArticles1.label}" />  
+                            <f:selectItems value="#{WMB.newss}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top Articles 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles2.value}" itemLabel="#{WMB.topArticles2.label}" />  
+                            <f:selectItems value="#{WMB.newss}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top Articles 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles3.value}" itemLabel="#{WMB.topArticles3.label}" />  
+                            <f:selectItems value="#{WMB.newss}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Articles 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles4.value}" itemLabel="#{WMB.topArticles4.label}" />  
+                            <f:selectItems value="#{WMB.newss}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Articles 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles5.value}" itemLabel="#{WMB.topArticles5.label}" />  
+                            <f:selectItems value="#{WMB.newss}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Articles 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles6.value}" itemLabel="#{WMB.topArticles6.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Articles 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles7.value}" itemLabel="#{WMB.topArticles7.label}" />  
+                            <f:selectItems value="#{WMB.newss}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Articles 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles8.value}" itemLabel="#{WMB.topArticles8.label}" />  
+                            <f:selectItems value="#{WMB.newss}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Articles 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles9.value}" itemLabel="#{WMB.topArticles9.label}" />  
+                            <f:selectItems value="#{WMB.newss}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Articles 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topArticles10.value}" itemLabel="#{WMB.topArticles10.label}" />  
+                            <f:selectItems value="#{WMB.newss}"/>  
+                        </p:selectOneMenu>    
+                        <p:commandButton value="edit"  action="#{WMB.editTopNews()}"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            
+            <h:form id="form_editTopVidoes">
+                <p:panel   id="panel_editTopVidoes"  styleClass="panel_index">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Top Video 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos1.value}" itemLabel="#{WMB.topVideos1.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top Video 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos2.value}" itemLabel="#{WMB.topVideos2.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top Video 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos3.value}" itemLabel="#{WMB.topVideos3.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Video 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos4.value}" itemLabel="#{WMB.topVideos4.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Video 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos5.value}" itemLabel="#{WMB.topVideos5.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Video 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos6.value}" itemLabel="#{WMB.topVideos6.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Video 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos7.value}" itemLabel="#{WMB.topVideos7.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Video 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos8.value}" itemLabel="#{WMB.topVideos8.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Video 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos9.value}" itemLabel="#{WMB.topVideos9.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Video 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topVideos10.value}" itemLabel="#{WMB.topVideos10.label}" />  
+                            <f:selectItems value="#{WMB.newss2}"/>  
+                        </p:selectOneMenu>    
+                   
+                     
+                        <p:commandButton value="edit"  action="#{WMB.editTopVidoes()}"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+                
+            <h:form id="form_editTopSlides">
+                <p:panel   id="panel_editTopSlides"  styleClass="panel_index">
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Top Slide 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides1.value}" itemLabel="#{WMB.topSlides1.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top Slide 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides2.value}" itemLabel="#{WMB.topSlides2.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top Slide 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides3.value}" itemLabel="#{WMB.topSlides3.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Slide 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides4.value}" itemLabel="#{WMB.topSlides4.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Slide 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides5.value}" itemLabel="#{WMB.topSlides5.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Slide 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides6.value}" itemLabel="#{WMB.topSlides6.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Slide 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides7.value}" itemLabel="#{WMB.topSlides7.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Slide 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides8.value}" itemLabel="#{WMB.topSlides8.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Slide 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides9.value}" itemLabel="#{WMB.topSlides9.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Slide 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topSlides10.value}" itemLabel="#{WMB.topSlides10.label}" />  
+                            <f:selectItems value="#{WMB.newss3}"/>  
+                        </p:selectOneMenu>    
+                   
+                     
+                        <p:commandButton value="edit"  action="#{WMB.editTopSlides()}"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            
+               
+            <h:form id="form_editTopPolles">
+                <p:panel   id="panel_editTopPolles"  styleClass="panel_index" >
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Top Poll 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles1.value}" itemLabel="#{WMB.topPolles1.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top Poll 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles2.value}" itemLabel="#{WMB.topPolles2.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top Poll 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles3.value}" itemLabel="#{WMB.topPolles3.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Poll 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles4.value}" itemLabel="#{WMB.topPolles4.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Poll 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles5.value}" itemLabel="#{WMB.topPolles5.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Poll 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles6.value}" itemLabel="#{WMB.topPolles6.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Poll 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles7.value}" itemLabel="#{WMB.topPolles7.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Poll 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles8.value}" itemLabel="#{WMB.topPolles8.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Poll 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles9.value}" itemLabel="#{WMB.topPolles9.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Poll 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topPolles10.value}" itemLabel="#{WMB.topPolles10.label}" />  
+                            <f:selectItems value="#{WMB.newss4}"/>  
+                        </p:selectOneMenu>    
+                   
+                     
+                        <p:commandButton value="edit"  action="#{WMB.editTopPolles()}"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+                   
+            <h:form id="form_editTopTopics"> 
+                     <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"/>
+                <p:panel   id="panel_editTopTopics"  styleClass="panel_index" >
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Top Topic 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic1.value}" itemLabel="#{WMB.topTopic1.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top Topic 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic2.value}" itemLabel="#{WMB.topTopic2.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top Topic 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic3.value}" itemLabel="#{WMB.topTopic3.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Topic 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic4.value}" itemLabel="#{WMB.topTopic4.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Topic 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic5.value}" itemLabel="#{WMB.topTopic5.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Topic 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic6.value}" itemLabel="#{WMB.topTopic6.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Topic 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic7.value}" itemLabel="#{WMB.topTopic7.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Topic 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic8.value}" itemLabel="#{WMB.topTopic8.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Topic 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic9.value}" itemLabel="#{WMB.topTopic9.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Topic 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{WMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{WMB.topTopic10.value}" itemLabel="#{WMB.topTopic10.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>    
+                   
+                     
+                        <p:commandButton value="edit"  action="#{WMB.editTopTopics()}"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+                
+        </center>
+    </h:body>
+</html>

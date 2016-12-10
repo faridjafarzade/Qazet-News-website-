@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<!--
+
+    Configuration file for UrlRewriteFilter
+    http://www.tuckey.org/urlrewrite/
+    <rule enabled="true">
+<name>Generic Pretty URLs Pass-through</name>
+<condition type="request-uri" operator="notequal">^/(article.xhtml|robots.txt|osd.xml|flex2gateway|cfide|cfformgateway|railo-context|admin-context|files|images|jrunscripts|javascripts|miscellaneous|stylesheets)</condition>
+<from>^/(.*)$</from>
+<to type="passthrough">/article.xtml/$1</to>
+</rule>
+-->
+<urlrewrite>
+    
+
+
+    <rule>
+       <from>^/([a-zA-Z0-9]+)/a/([0-9]+)$</from>
+        <to type="forward">/faces/article.xhtml?topic=$1&amp;news=$2</to>
+    </rule>
+   
+   
+   
+    <rule>
+        <from>^/([a-zA-Z0-9]+)/t$</from>
+        <to  type="forward">/faces/topic.xhtml?topic=$1</to>
+    </rule>
+   
+   
+ 
+ 
+    
+    
+   
+   
+   
+   
+   
+   
+
+
+   <!-- 
+    INSTALLATION
+    <outbound-rule>
+        <condition type="request-uri" operator="notequal">\.(images|gif|jpeg|png|css|js|pdf|doc|ico|jsp|jpg|xhtml)$</condition>
+         <from>^/faces/article.xhtml?topic=([a-zA-Z]+)&amp;news=([0-9]+)$</from>
+        <to type="passthrough">/faces/$1/a/$2</to>
+   </outbound-rule>
+    <outbound-rule>
+        <condition type="request-uri" operator="notequal">\.(images|gif|jpeg|png|css|js|pdf|doc|ico|jsp|jpg|xhtml|java)$</condition>
+       <from>^/faces/topic.xhtml?topic=([a-zA-Z]+)$</from>
+        <to>/faces/t/$1</to>
+   </outbound-rule>
+<rule>
+<from>http://localhost:8080/Qazet/faces/article.xhtml?topic=([a-z]+)&amp;news=([0-9]+)$</from>
+        <to type="redirect">http://localhost:8080/Qazet/faces/a/$1/$2</to>
+        <from>http://localhost:8080/Qazet/faces/article.xhtml?topic=$1&amp;news=$2</from>
+        <to>http://localhost:8080/Qazet/faces/a/([a-z]+)/([0-9]+)$</to>
+    </rule>
+        in your web.xml add...
+
+        <filter>
+            <filter-name>UrlRewriteFilter</filter-name>
+            <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+            <init-param>
+                <param-name>logLevel</param-name>
+                <param-value>WARN</param-value>
+            </init-param>
+        </filter>
+        <filter-mapping>
+            <filter-name>UrlRewriteFilter</filter-name>
+            <url-pattern>/*</url-pattern>
+        </filter-mapping>
+
+     EXAMPLES
+
+     Redirect one url
+        <rule>
+            <from>/some/old/page.html</from>
+            <to type="redirect">/very/new/page.html</to>
+        </rule>
+
+    Redirect a directory
+        <rule>
+            <from>/some/olddir/(.*)</from>
+            <to type="redirect">/very/newdir/$1</to>
+        </rule>
+
+    Clean a url
+        <rule>
+            <from>/products/([0-9]+)</from>
+            <to>/products/index.jsp?product_id=$1</to>
+        </rule>
+    eg, /products/1234 will be passed on to /products/index.jsp?product_id=1234 without the user noticing.
+
+    Browser detection
+        <rule>
+            <condition name="user-agent">Mozilla/[1-4]</condition>
+            <from>/some/page.html</from>
+            <to>/some/page-for-old-browsers.html</to>
+        </rule>
+    eg, will pass the request for /some/page.html on to /some/page-for-old-browsers.html only for older
+    browsers whose user agent srtings match Mozilla/1, Mozilla/2, Mozilla/3 or Mozilla/4.
+
+    Centralised browser detection
+        <rule>
+            <condition name="user-agent">Mozilla/[1-4]</condition>
+            <set type="request" name="browser">moz</set>
+        </rule>
+    eg, all requests will be checked against the condition and if matched
+    request.setAttribute("browser", "moz") will be called.
+
+    -->
+
+</urlrewrite>
+

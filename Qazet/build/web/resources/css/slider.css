@@ -1,0 +1,95 @@
+
+.featured_mini_slider{
+   overflow:hidden;
+    position:relative;
+}  
+.mini_slider{
+    position:absolute;
+    top:0px;
+    left:0px;
+} 
+.thumbinal{
+    position: absolute;
+    display: none;
+    color: red;
+} 
+.thumbinalHover{
+    position: absolute;
+    display: none;
+}
+
+
+.mini_slider div {
+    float:left;
+    background-color: #000000;
+    position:relative;
+}
+
+.mini_slider_div_PhotoNumber div{
+    
+    display:block;
+    float: left;
+    
+    
+}
+.mini_slider_div_PhotoNumber div span{
+    display:none;
+}
+
+
+
+
+#mini_slider .featured_mini_slider{
+    width:320px;
+    height:265px;
+    background-color: #000000
+    
+}  
+ 
+#mini_slider .thumbinal{
+    background-color: #4e5759;
+} 
+#mini_slider .thumbinalHover{
+    background-color:  #ffffff;
+}
+
+
+#mini_slider .mini_slider .mini_slider_news {
+    min-width:320px;
+    min-height:260px;
+    background-color: #000000;
+}
+
+
+#mini_slider .mini_slider .mini_slider_news img{
+    max-width: 320px;
+    min-width: 320px;
+}
+
+
+#mini_slider .mini_slider_div_PhotoNumber{
+    height: 25px;
+    width: 320px;
+    background-color:#000000
+}
+    
+    
+    
+#mini_slider .mini_slider_div_PhotoNumber div{
+    margin: 4px;
+    width: 7px;
+    height: 7px;
+    background-color: white;
+    border-radius:4px;
+    
+    
+}  
+.mini_slider_div_PhotoNumber div:hover{
+    cursor: pointer
+    
+    
+} 
+
+
+
+

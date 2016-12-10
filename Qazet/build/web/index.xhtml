@@ -1,0 +1,558 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>#{PaMB.giveTitle()}</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="robots" content="noarchive" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="#{PaMB.ws.name}" />
+        <meta name="copyright" content="Copyright (c) 2013 ABC News Internet Ventures" />
+        <meta name="keywords" content="#{PaMB.giveKeys()}" />
+        <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:600' rel='stylesheet' type='text/css'/>
+        
+        <link href="resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/general.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/topic.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/slider.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/font-awesome-ie.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/newsslider.css" rel="stylesheet" type="text/css" />
+        <link href="resources/css/rightcontext.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="resources/Jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="resources/Jquery/jquery-ui-1.8.23.custom.min.js"></script>
+        <script type="text/javascript" src="resources/Jquery/sliderplugin.js"></script>
+        <script type="text/javascript" src="resources/Jquery/general.js"></script>
+        <script type="text/javascript" src="resources/Jquery/jquery_cf_newssliderplugin.js"></script>
+        <script type="text/javascript" src="resources/Jquery/topic.js"></script>  
+     </h:head>
+    <h:body  onload="#{PaMB.viewNews()}"> 
+
+        <div id="fb-root"></div>
+     
+        <h:outputStylesheet name="index.css" library="css"/>
+
+
+
+        <table id="table_header"  columns="1" border="0" cellspacing="0" cellpadding="0">
+            <tr> 
+                <td>
+                    <div style="width: 1000px;margin-left:auto;margin-right: auto;padding: 0px">
+                        <ul id="nav">
+                            <li  class="li_f"><a href="index.xhtml"> #{WMB.ws.shortName} </a></li>
+                            <ui:repeat var="item" value="#{PaMB.giveWebsiteTopTopic(0,5)}" varStatus="st">
+                                <li class="li_f" id="li_f-#{st.index}">
+                                    <h:outputLink value="#{item.name}/t">#{item.name}</h:outputLink>
+                                    <span style="display: none">#{st.index}</span>
+                                </li>
+                            </ui:repeat>
+                            <li  id="li_showMoreTopics"> More...</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr> 
+                <td>
+                    <div id="div_banner">
+                        <center>
+                            <img src="resources/Images/#{WMB.ws.banner}"/> 
+                        </center>
+                    </div>
+                </td>
+            </tr> 
+            <tr> 
+                <td id="td_moreTopics" style="display:none">
+                    <div style="width: 1000px;margin-left:auto;margin-right: auto;padding: 0px">
+                        <ul class="nav">
+                            <ui:repeat var="item" value="#{PaMB.giveWebsiteTopTopic(0,10)}" varStatus="st">
+                                <li class="li_f" id="li_f-#{st.index}"><h:outputLink value="#{item.name}/t">#{item.name}</h:outputLink>
+                                    <span style="display: none">#{st.index}</span>
+                                </li>
+                            </ui:repeat>
+                        </ul>
+                    </div>
+                    <div style="width: 1000px;margin-left:auto;margin-right: auto;padding: 0px">
+                        <ul class="nav">
+                            <ui:repeat var="item" value="#{PaMB.giveWebsiteTopTopic(10,20)}" varStatus="st">
+                                <li class="li_f" id="li_f-#{st.index}"><h:outputLink value="#{item.name}/t">#{item.name}</h:outputLink>
+                                    <span style="display: none">#{st.index}</span>
+                                </li>
+                            </ui:repeat>
+                         </ul>
+                    </div>
+
+                </td>
+            </tr>
+
+            <ui:repeat var="item" value="#{PaMB.giveWebsiteTopTopic(0,5)}" varStatus="st">
+                <tr> 
+                    <td class="div_menu_news" id="div_menu_news-#{st.index}"> 
+                        <span style="display: none">#{st.index}</span>
+                        <table>
+                            <tr>
+
+                                <td>
+                                    <table   class="table_menu_news"  columns="1" border="0" cellspacing="0" cellpadding="0" style="border-left: 2px solid #303030" >
+                                        <tr>
+
+                                            <td colspan="2"  style="border-right: 2px solid #303030;">
+                                                <b> Newest </b>
+                                            </td>
+                                            <td  colspan="2" style="border-right: 2px solid #303030;">
+                                                <b>  Editor choice   </b>
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <ui:repeat var="t" value="#{PaMB.giveNewestArticle(item.name,0, 1)}">
+                                              <td  class="td_menu_news2" >
+                                                    <h:outputLink  value="#{t.topic.name}/a/#{t.id}" >
+                                                        <img src="resources/Images/#{t.headerImage}"/>
+                                                    </h:outputLink>
+                                                </td>
+
+                                                <td  class="td_menu_news2" style="border-right: 2px solid #303030" valign="top">
+                                                    <h:outputLink  value="#{t.topic.name}/a/#{t.id}" >
+                                                        <div>
+                                                            #{t.name}
+                                                        </div>
+                                                    </h:outputLink>
+                                                </td>
+                                            </ui:repeat> 
+                                            <ui:repeat var="t" value="#{PaMB.giveTopArticle(item.name, 0, 1)}">
+
+                                                <td  class="td_menu_news2" >
+                                                    <h:outputLink  value="#{t.topic.name}/a/#{t.id}" >
+                                                        <img src="resources/Images/#{t.headerImage}"/>
+                                                    </h:outputLink>
+                                                </td>
+
+                                                <td  class="td_menu_news2" style="border-right: 2px solid #303030" valign="top">
+                                                    <h:outputLink  value="#{t.topic.name}/a/#{t.id}" >
+                                                        <div>
+                                                            #{t.name}
+                                                        </div>
+                                                    </h:outputLink>
+                                                </td>
+                                            </ui:repeat> 
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table >
+                                        <ui:repeat var="t" value="#{PaMB.giveTopTopic(item.name,0,3)}">
+                                            <tr>
+                                                <td class="td_menu_topics" valign="left" style="padding: 3px">
+                                                    <h:outputLink  value="#{t.name}/t" >
+                                                        <b style="font-size: 14px;color: #021A1A">#{t.name}</b>
+                                                    </h:outputLink>
+
+                                                </td>
+                                            </tr>
+
+                                        </ui:repeat>
+                                    </table>
+                                </td>
+
+                                <td>
+                                    <table>
+                                        <ui:repeat var="t" value="#{PaMB.giveTopTopic(item.name,4,7)}">
+                                            <tr>
+                                                <td valign="left" style="padding: 3px">
+                                                    <h:outputLink  value="#{t.name}/t" >
+                                                        <b style="font-size: 14px;color: #021A1A">#{t.name}</b>
+                                                    </h:outputLink>
+
+                                                </td>
+                                            </tr>
+
+                                        </ui:repeat>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <div id="div_border" style="width: 100%;height: 4px;clear: both;"></div>
+                    </td>
+                </tr>
+            </ui:repeat>
+        </table>
+
+        <div style="width: 1000px;margin-left:auto;margin-right: auto;padding: 0px;">
+            <form  id="search" action="search.xhtml" >
+                <table cellpadding="0" cellspacing="0" border="0" id="search">
+                    <tr>
+                             <td>
+                                 <img src="resources/designtools/icons/search-right-image-border.png"/>
+                            </td>
+                        <td class="td_Search">
+                            <div class="div_Search">
+                <input type="text" class="inputSearch" name="sk" size="40" value="#{PaMB.searchKey}" title="search"/>
+                            </div>
+                </td>
+                        <td>
+                                 <img src="resources/designtools/icons/search-left-image-border.png"/>
+                            </td>
+                </tr>
+                </table>
+            </form>
+        </div>
+        <center> <div id="div_context" style="padding-top: 30px;min-height: 400px;width: 1000px;">
+                <table  style="">
+                    <tr>
+                        <td valign="top">
+                            <table cellspacing="10px">
+                                <tr>
+                                    <td id="content">
+                <table id="table_context" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <div   id="news_slider_1" style="margin-left:12px;">
+                                <ui:repeat var="news" value="#{PaMB.giveTopArticle(0, 5)}">
+                                    <div class="news_slider_topic">
+                                        #{news.topic.name}
+                                    </div>
+                                    <div class="news_slider_text">
+                                        <h2>#{news.name}</h2>
+                                        #{news.header}
+                                    </div>
+                                    <div class="news_slider_images">
+                                        <img src='resources/Images/#{news.headerImage}' /> 
+
+                                    </div>
+                                </ui:repeat>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <table  id="table_topNews"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td class="header" colspan="3" >
+                                        <b> News </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ui:repeat var="item" value="#{PaMB.giveTopArticle(0, 1)}">
+                                            <h:outputLink  value="#{item.topic.name}/a/#{item.id}" >
+                                                <table id="table_firstNews" columns="1" border="0" cellspacing="4" cellpadding="0">
+                                                    <tr>
+                                                        <td>
+                                                            <img src="resources/Images/#{item.headerImage}" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="name">
+                                                                <b>#{item.name}</b>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <div  class="header" >
+                                                                #{item.header}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </h:outputLink>
+                                        </ui:repeat> 
+                                    </td>
+
+
+                                    <td valign="top">
+                                        <ui:repeat var="item" value="#{PaMB.giveTopArticle( 1,2)}">
+                                            <h:outputLink  value="#{item.topic.name}/a/#{item.id}" >
+                                                <table id="table_secondNews" columns="1" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td>
+                                                            <img src="resources/Images/#{item.headerImage}" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="name">
+                                                                <b>#{item.name}</b>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <div  class="header" >
+                                                                #{item.header}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </h:outputLink>
+                                        </ui:repeat> 
+                                    </td>
+                                    <td valign="top"> 
+                                        <table id="table_lastNews" columns="1" border="0" cellspacing="0" cellpadding="0">
+                                            <ui:repeat var="item" value="#{PaMB.giveTopArticle( 0,5)}">
+                                                <tr>
+                                                    <td>
+                                                        <h:outputLink  value="#{item.topic.name}/a/#{item.id}" >
+                                                            <div >
+                                                                <b>#{item.name}</b>
+                                                            </div>
+                                                        </h:outputLink>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat> 
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table id="table_topics">
+                                <ui:repeat var="m" value="#{PaMB.giveWebsiteTopTopic(0, 10)}">
+                                    <tr class="table_topics_tr">
+                                        <td valign="top">
+
+                                            <table  class="table_topic"  border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <td class="headerName" colspan="3" >
+                                                        <h:outputLink  value="#{m.name}/t" >
+                                                            <div>
+                                                                <b>#{m.name}</b>
+                                                            </div>
+                                                        </h:outputLink>
+                                                    </td>
+                                                </tr>
+                                                <ui:repeat var="news" value="#{AMB.giveTopArticle(m.name, 0, 1)}">
+                                                    <tr  valign="top">
+                                                        <td>
+                                                            <img src="resources/Images/#{news.headerImage}" style="width:300px;height:187px"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="name" colspan="3" >
+                                                            <h:outputLink  value="#{news.topic.name}/a/#{news.id}" >
+                                                                <div>
+                                                                    <b>#{news.name}</b>
+                                                                </div>
+                                                            </h:outputLink>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="header">
+                                                           <h:outputLink  value="#{news.topic.name}/a/#{news.id}" >
+                                                                <div>
+                                                                    #{news.header}
+                                                                </div>
+                                                            </h:outputLink>
+                                                        </td>
+                                                    </tr>
+                                                </ui:repeat>
+                                                <ui:repeat var="news" value="#{AMB.giveTopArticle(m.name, 1, 3)}">
+                                                    <tr>
+                                                        <td class="name2" colspan="3" >
+                                                            <h:outputLink  value="#{news.topic.name}/a/#{news.id}" >
+                                                                <div>
+                                                                    #{news.name}
+                                                                </div>
+                                                            </h:outputLink>
+                                                        </td>
+                                                    </tr>
+                                                </ui:repeat>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </ui:repeat>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+             </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td valign="top" >
+                            <table id="table_rightContent" style="width: 320px;">
+                                <tr>
+                                    <td  class="td_header" valign="top">
+                                        <div style="margin-top: 0px">
+                                            <b> The Latest News </b>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_data" style="border:0px solid white ">
+                                        <ui:repeat var="news" value="#{PaMB.giveNewestArticle(0,5)}" varStatus="sta">
+                                            <table class="table_nn" cellspacing="0" border="0" cellpadding="0">
+                                                <tr>
+                                                    <td class="name" style="border:1px solid gray " colspan="2">
+                                                        <div style="color: white;font-size: 16px;margin: 6px 3px;float: left;padding: 5px;background-color: #021A1A">#{sta.index+1} </div> 
+
+                                                        <div style="max-width: 270px;width: 380px;margin: 6px 3px;color: #000000;font-size: 16px;float: left">
+                                                            #{news.name}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                </tr>
+                                                <tr  class="td_nn"  style="display:none" >
+
+                                                    <td style="background-color: #b7bbbe;width: 320px;">
+                                                       <h:outputLink  value="#{news.topic.name}/a/#{news.id}" >
+                                                            <img  src="resources/Images/#{news.headerImage}" style="width:300px;height: 180px;border: 10px solid white "/>
+
+                                                            <div style="max-width: 310px;width: 320px;margin: 6px 0px;padding: 5px">
+                                                                <center> #{news.header}</center> 
+                                                            </div>
+                                                        </h:outputLink>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </ui:repeat>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  class="td_ads">
+                                        <div>
+                                            <ui:repeat var="item" value="#{ AdvMB.giveRandomAdd('Square')}" varStatus="sta">
+                                                <h:outputLink  value="#{item.url}" > 
+                                                    <object type="application/x-shockwave-flash" data="resources/advertisements/#{AdvMB.selectedAdv.index}" style="display:#{item.isSwf};">
+                                                        <param name="movie" value="resources/advertisements/#{item.index}" /></object> 
+                                                    <img src="resources/advertisements/#{item.index}" style="display:#{item.isnSwf}; "/>
+                                                </h:outputLink>
+
+                                            </ui:repeat>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  class="td_header">
+                                        <div>
+                                            <b> The Photo Galleries </b>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="td_data">
+                                        <div  id="mini_slider" style="max-width: 320px;">
+                                            <ui:repeat var="news" value="#{PaMB.giveNewestSlides(0, 5)}">
+                                                <h:outputLink  value="#{news.topic.name}/s/#{news.id}" >
+                                                    <div  class="mini_slider_news"  >
+                                                        <table style="width: 320px;color: #cccccc;background-color: #000000" cellspacing="0" border="0" cellpadding="0">
+                                                            <tr>
+                                                                <td>
+                                                                    <img src="resources/Images/#{SMB.header(news)}" style="width: 320px;height: 200px"/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div style="max-width: 315px;width: 315px;margin:5px 2px">
+                                                                        <center> View: <b style="color: #f7f7f7"> #{news.name} </b></center> 
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td valign="center">
+                                                                    <center>  
+                                                                        <div style="max-width: 310px;width: 310px;margin:4px 5px;">
+                                                                            <center>    #{news.topic.name} </center>
+                                                                        </div>
+                                                                    </center> 
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </h:outputLink>
+                                            </ui:repeat>
+                                        </div> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  class="td_ads">
+                                        <div>
+                                            <ui:repeat var="item" value="#{ AdvMB.giveRandomAdd('Square')}" varStatus="sta">
+                                                <h:outputLink  value="#{item.url}" > 
+                                                    <object type="application/x-shockwave-flash" data="resources/advertisements/#{AdvMB.selectedAdv.index}" style="display:#{item.isSwf};">
+                                                        <param name="movie" value="resources/advertisements/#{item.index}" /></object> 
+                                                    <img src="resources/advertisements/#{item.index}" style="display:#{item.isnSwf}; "/>
+                                                </h:outputLink>
+
+                                            </ui:repeat>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td   class="td_header" >
+                                        <div> <b> The Top Videos</b> </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  class="td_data">
+                                        <ui:repeat var="item" value="#{ PaMB.giveTopVideo(0, 5)}" varStatus="sta">
+                                            <div class="div_topVideos">
+                                                <h:outputLink  value="#{t.topic.name}/v/#{t.id}" >
+                                                    <div  class="div_topVideoHI">
+                                                        <img   class="img_topVideo"   id="img_topVideo-#{sta.index}" src="resources/Images/#{item.headerImage}" style="width:320px;height: 200px "/>
+                                                        <div  class="div_topVideoHeader">
+                                                            #{item.header}
+                                                        </div>
+                                                        <div   class="img_topVideoIcon" id="img_topVideoIcon-#{sta.index}">
+                                                            <img  src="resources/designtools/icons/vp.png" style="margin-top: auto"/>
+                                                            <div style="max-width:190px;float: right"><b>
+                                                                    #{item.name}
+                                                                </b></div>
+                                                        </div>
+                                                    </div>
+                                                </h:outputLink>
+                                            </div>
+                                        </ui:repeat>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td  class="td_ads">
+                                        <div>
+                                            <ui:repeat var="item" value="#{ AdvMB.giveRandomAdd('Square')}" varStatus="sta">
+                                                <h:outputLink  value="#{item.url}" > 
+                                                    <object type="application/x-shockwave-flash" data="resources/advertisements/#{AdvMB.selectedAdv.index}" style="display:#{item.isSwf};">
+                                                        <param name="movie" value="resources/advertisements/#{item.index}" /></object> 
+                                                    <img src="resources/advertisements/#{item.index}" style="display:#{item.isnSwf}; "/>
+                                                </h:outputLink>
+                                            </ui:repeat>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </center>
+
+        <div  id="div_footer">
+            <div style="width: 1000px;margin-left:auto;margin-right: auto;padding:0px;">
+                <ul style="margin: 0px 0px 0pxm 0px">
+                    <li>
+                        <img src="resources/Images/#{WMB.ws.whiteLogo}" style="max-height: 30px;"/>
+                    </li>
+                    <li>
+                        <div style="max-width: 280px;margin-top: 10px;">
+                            #{WMB.ws.shortName} © #{1900+NMB.nowDate.year} The #{WMB.ws.shortName} is not responsible for the content of external sites.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div  id="div_footer2">
+        </div>
+    </h:body>
+</html>

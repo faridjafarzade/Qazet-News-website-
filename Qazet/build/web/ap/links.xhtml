@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome-ie.css" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'/>
+        <title>Add Link</title>
+    </h:head>
+    <h:body> 
+<h:outputStylesheet name="cssLayout.css" library="css"/>
+
+        <div class="blueBack">
+
+
+        </div>
+             <div id="left">
+              <ul id="ul_menu">
+
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-home"></i> 
+                        </div>
+                        <div><a href="index.xhtml">Home</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-user"></i></div>
+                        <div><a href="admins.xhtml">Admins</a></div>
+
+                    </div>
+                </li>
+                
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-folder-close"></i></div>
+                        <div><a href="topics.xhtml">Topics</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-pencil"></i>
+                        </div>
+                        <div><a href="articles.xhtml">Articles</a></div>
+
+                    </div>
+                </li>
+                 <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-link"></i>
+                        </div>
+                        <div><a href="links.xhtml">Links</a></div>
+
+                    </div>
+                </li>
+                 <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-file"></i>
+                        </div>
+                        <div><a href="videos.xhtml">Videous</a></div>
+
+                    </div>
+                </li>
+                 <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="slides.xhtml">Slides</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-check"></i>
+                        </div>
+                        <div><a href="polles.xhtml">Polls</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-barcode"></i>
+                        </div>
+                        <div><a href="advertisement.xhtml">Advertisement</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="images.xhtml">Images</a></div>
+
+                    </div>
+                </li>
+                  <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-lock"></i>
+                        </div>
+                        <div> <h:form>
+                        <p:commandLink actionListener="#{AdMB.logout()}" style="margin-right:20px;" ajax="false">  
+                        Logout 
+                       </p:commandLink>
+                        </h:form></div>
+
+                    </div>
+                </li>
+
+
+
+            </ul>
+        </div>
+       <p:panel  styleClass="mainPanel" >
+            <h:form id="form_selectLink">
+                    <p:panel id="panelSelectLink" style="background-color: rgba(255,255,255,0.7);border-color:rgba(0,0,0,0.0); " >
+                        <h:panelGrid columns="1">
+
+                            <p:tree value="#{LMB.root2}" var="node"  selectionMode="single"  selection="#{LMB.selectedNode2}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                                <p:treeNode type="document" icon="ui-icon ui-icon-document">
+                                    <h:outputText value="#{node}" />
+                                </p:treeNode>
+                                <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                    <h:outputText value="#{node}"/>  
+                                </p:treeNode>  
+
+                            </p:tree>
+                            <h:panelGrid columns="4">
+                                <p:commandButton value="add"    actionListener="#{LMB.showAddLinkForm()}" process="@this,:form_selectLink" update=":panel_addLink"/> 
+                                <p:commandButton value="show"   actionListener="#{LMB.showLink()}" process="@this,:form_selectLink"/> 
+                                <p:commandButton value="edit"   actionListener="#{LMB.showEditLinkForm()}" process="@this,:form_selectLink" update=":form_editLink:panelEditLink"/> 
+                                <p:commandButton value="delete" actionListener="#{LMB.deletLink()}" process="@this,:form_selectLink" update=":form_selectLink:panelSelectLink"/> 
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            <p:panel style="background-color: rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.0); "  header="Add Link"  id="panel_addLink"   visible="#{LMB.voap}" closable="true" closeSpeed="500" >
+                <h:form enctype="multipart/form-data" id="form_addLink"> 
+                     <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"/>
+                    <h:panelGrid columns="2" style="margin-top:10px">  
+                        <h:outputLabel value="Topic:"/>
+                        <p:tree value="#{LMB.root}" var="node"  selectionMode="single"  selection="#{LMB.selectedNode}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0);">
+                            <p:treeNode >  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>  
+                        </p:tree>  
+                        <h:outputLabel value="News Name:"/>
+                        <p:inputText value="#{LMB.link.name}"/>
+                        <h:outputLabel value="Header:"/>
+                        <p:inputText  value="#{LMB.link.header}"/>
+                        <h:outputLabel value="Header Image:"/>
+                        <p:fileUpload mode="simple" value="#{LMB.file}"  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/" id="uploadButton"/> 
+                        <h:outputLabel value="Index:"/>
+                        <p:inputText id="editor" value="#{LMB.link.link.link}" />  
+                        <h:outputText value="Value:" />  
+                        <p:spinner value="#{LMB.link.weightiness}"/>
+                        <p:commandButton id="submitButton" value="Submit"  action="#{LMB.addLink()}"  icon="ui-icon-disk" ajax="false" update=":form_addLink:growl"/>  
+                        <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()" icon="ui-icon-close" />  
+                    </h:panelGrid>
+                </h:form> 
+                 </p:panel>
+               <h:form id="form_editLink" enctype="multipart/form-data">
+                    <p:panel id="panelEditLink" header="Edit Link" visible="#{LMB.voep}" style="background-color: rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.0); " closable="true" closeSpeed="500" >
+
+                        <h:panelGrid columns="2" style="margin-top:10px" id="panel_editLink">
+                            <h:outputLabel value="Link Current Topic:"/>
+                            <h:outputLabel value="#{LMB.selectedLink.topic.name}" />
+                            <h:outputLabel value="Topic:"/>
+                            <p:tree value="#{LMB.root3}" var="node"  selectionMode="single"  selection="#{LMB.selectedNode3}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                                <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                    <h:outputText value="#{node}"/>  
+                                </p:treeNode>  
+                            </p:tree>  
+                            <h:outputLabel value="Id:" style="visibility:hidden;height: 0px"/>
+                            <p:inputText value="#{LMB.selectedLink.id}" style="visibility:hidden;height: 0px"/>
+                            <h:outputLabel value="Id:" style="visibility:hidden;height: 0px"/>
+                            <p:inputText value="#{LMB.link2.id}" style="visibility:hidden;height: 0px"/>
+                            <h:outputLabel value="Name:"/>
+                            <p:inputText value="#{LMB.selectedLink.name}"/>
+                            <h:outputLabel value="Header:"/>
+                            <p:inputTextarea style="min-width: 400px" value="#{LMB.selectedLink.header}"/>
+                            <h:outputLabel value="Link Current Header Image:"/>
+                            <p:graphicImage value="../resources/Images/#{LMB.selectedLink.headerImage}" style="max-height:140px"/>
+                            <h:outputLabel value="Change:"/>
+                            <p:fileUpload mode="simple" value="#{LMB.file2}"  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"/> 
+                            <h:outputLabel value="Link:"/>
+                            <p:inputText value="#{LMB.link2.link}" id="ed"/>  
+                            <h:outputText value="Value:" />  
+                            <p:spinner value="#{LMB.selectedLink.weightiness}"/>
+                            <p:commandButton id="submitButton" value="Submit"  action="#{LMB.edidLink()}" icon="ui-icon-disk" ajax="false" update=":form_selectLink:panelSelectLink" />    
+                            <p:commandButton id="clearButton_selectedArticle" type="button" value="Clear" onclick="ed.clear()" icon="ui-icon-close" />  
+
+                        </h:panelGrid>
+                   </p:panel>
+                </h:form>
+           
+               </p:panel>
+
+    </h:body>
+
+</html>

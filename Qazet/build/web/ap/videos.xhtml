@@ -1,0 +1,217 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome-ie.css" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'/>
+        <title>Add Video</title>
+    </h:head>
+    <h:body> 
+        <h:outputStylesheet name="cssLayout.css" library="css"/>
+<div class="blueBack">
+</div>
+        <div id="left">
+            <ul id="ul_menu">
+
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-home"></i> 
+                        </div>
+                        <div><a href="index.xhtml">Home</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-user"></i></div>
+                        <div><a href="admins.xhtml">Admins</a></div>
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-folder-close"></i></div>
+                        <div><a href="topics.xhtml">Topics</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-pencil"></i>
+                        </div>
+                        <div><a href="articles.xhtml">Articles</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-link"></i>
+                        </div>
+                        <div><a href="links.xhtml">Links</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-file"></i>
+                        </div>
+                        <div><a href="videos.xhtml">Videous</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="slides.xhtml">Slides</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-check"></i>
+                        </div>
+                        <div><a href="polles.xhtml">Polls</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-barcode"></i>
+                        </div>
+                        <div><a href="advertisement.xhtml">Advertisement</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="images.xhtml">Images</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-lock"></i>
+                        </div>
+                        <div> <h:form>
+                                <p:commandLink actionListener="#{AdMB.logout()}" style="margin-right:20px;" ajax="false">  
+                                    Logout 
+                                </p:commandLink>
+                            </h:form></div>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <p:panel  styleClass="mainPanel" >
+            <h:form id="form_selectVideo">
+                <p:panel id="panelSelectVideo" style="background-color: rgba(255,255,255,0.7);border-color:rgba(0,0,0,0.0); " >
+                    <h:panelGrid columns="1">
+                        <p:tree value="#{VMB.root2}" var="node"  selectionMode="single"  selection="#{VMB.selectedNode2}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode type="video" icon="ui-icon ui-icon-video">
+                                <h:outputText value="#{node}" />
+                            </p:treeNode>
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>  
+
+                        </p:tree>
+                        <h:panelGrid columns="4">
+                            <p:commandButton value="add"    actionListener="#{VMB.showAddVideoForm()}" process="@this,:form_selectVideo" update=":panel_addVideo"/> 
+                            <p:commandButton value="show"   actionListener="#{VMB.showVideo()}" process="@this,:form_selectVideo"/> 
+                            <p:commandButton value="edit"   actionListener="#{VMB.showEditVideoForm()}" process="@this,:form_selectVideo" update=":form_editVideo:panelEditVideo"/> 
+                            <p:commandButton value="delete" actionListener="#{VMB.deletVideo()}" process="@this,:form_selectVideo" update=":form_selectVideo:panelSelectVideo"/> 
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <p:panel style="background-color: rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.0); "  header="Add Video" id="panel_addVideo"   visible="#{VMB.voap}" closable="true" closeSpeed="500" >
+                <h:form enctype="multipart/form-data" id="form_addVideo"> 
+                    <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"/>
+                    <h:panelGrid columns="2" style="margin-top:10px">  
+                        <h:outputLabel value="Topic:"/>
+                        <p:tree value="#{VMB.root}" var="node"  selectionMode="single"  selection="#{VMB.selectedNode}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode >  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>  
+                        </p:tree>  
+                        <h:outputLabel value="Video Name:"/>
+                        <p:inputText value="#{VMB.video.name}"/>
+                        <h:outputLabel value="Header:"/>
+                        <p:inputTextarea style="min-width: 400px"  value="#{VMB.video.header}"/>
+                        <h:outputLabel value="Header Image:"/>
+                        <p:fileUpload mode="simple" value="#{VMB.file}"  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/" id="uploadButton"/> 
+                        <h:outputLabel value="Youtube link of video:"/>
+                        <p:inputText value="#{VMB.video.video.video}"/>
+                        <h:outputLabel value="Explain Text:"/>
+                        <p:editor id="editor" value="#{VMB.video.explainText}" width="600"/>  
+                        <h:outputText value="Value:" />  
+                        <p:spinner value="#{VMB.video.weightiness}"/>  
+                        <p:commandButton id="submitButton" value="Submit"  action="#{VMB.addVideo()}" icon="ui-icon-disk" ajax="false" update=":form_addVideo:growl,:form_selectVideo:panelSelectVideo"/>  
+                        <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()" icon="ui-icon-close" />  
+                    </h:panelGrid>
+                </h:form> 
+            </p:panel>
+            <h:form id="form_editVideo" enctype="multipart/form-data">
+                <p:panel id="panelEditVideo" header="Edit Video" visible="#{VMB.voep}" style="background-color: rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.0); "  closable="true" closeSpeed="500" >
+                    <h:panelGrid columns="2" style="margin-top:10px" id="panel_editVideo">
+                        <h:outputLabel value="Video Current Topic:"/>
+                        <h:outputLabel value="#{VMB.selectedVideo.topic.name}" />
+                        <h:outputLabel value="Topic:"/>
+                        <p:tree value="#{VMB.root3}" var="node"  selectionMode="single"  selection="#{VMB.selectedNode3}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>  
+                        </p:tree>  
+                        <h:outputLabel value="Article Id:" style="visibility:hidden;height: 0px"/>
+                        <h:inputText value="#{VMB.selectedVideo.id}" style="visibility:hidden;height: 0px"/>
+                        <h:outputLabel value="Name:"/>
+                        <p:inputTextarea style="min-width: 400px" value="#{VMB.selectedVideo.name}"/>
+                        <h:outputLabel value="Header:"/>
+                        <p:inputText  value="#{VMB.selectedVideo.header}"/>
+                        <h:outputLabel value="Current Header Image:"/>
+                        <p:graphicImage value="../resources/Images/#{VMB.selectedVideo.headerImage}" style="max-height:140px"/>
+                        <h:outputLabel value="Change:"/>
+                        <p:fileUpload mode="simple" value="#{VMB.file2}"  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"/> 
+                        <h:outputLabel value="Current video:"/>
+                        <p:media value="#{VMB.selectedVideo.video.video}" width="420" height="315" player="flash"/>
+                        <h:outputLabel value="Youtube link of video:"/>
+                        <p:inputText value="#{VMB.videoLink}"/>
+                        <h:outputLabel value="Explain Text:"/>
+                        <p:editor id="editor" value="#{VMB.selectedVideo.explainText}" width="600"/>  
+                        <h:outputText value="Value:" />  
+                        <p:spinner value="#{VMB.selectedVideo.weightiness}"/>  
+                        <p:commandButton id="submitButton" value="Submit"  action="#{VMB.editVideo()}" icon="ui-icon-disk" ajax="false" update=":form_addVideo:growl,:form_selectVideo:panelSelectVideo"/>  
+                        <p:commandButton id="clearButton" type="button" value="Clear" onclick="editor.clear()" icon="ui-icon-close" /> 
+                    </h:panelGrid>
+
+                </p:panel>
+            </h:form>
+
+        </p:panel>
+
+    </h:body>
+
+</html>

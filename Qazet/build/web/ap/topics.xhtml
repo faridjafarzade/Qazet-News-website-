@@ -1,0 +1,666 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome-ie.css" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'/>
+        <title>Topics</title>
+    </h:head>
+    <h:body onload="#{TMB.start()}">
+        <h:outputStylesheet name="cssLayout.css" library="css"/>
+
+        <div class="blueBack">
+
+
+        </div>
+        <div id="left">
+            <ul id="ul_menu">
+
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-home"></i> 
+                        </div>
+                        <div><a href="index.xhtml">Home</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-user"></i></div>
+                        <div><a href="admins.xhtml">Admins</a></div>
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-folder-close"></i></div>
+                        <div><a href="topics.xhtml">Topics</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-pencil"></i>
+                        </div>
+                        <div><a href="articles.xhtml">Articles</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-link"></i>
+                        </div>
+                        <div><a href="links.xhtml">Links</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-file"></i>
+                        </div>
+                        <div><a href="videos.xhtml">Videous</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="slides.xhtml">Slides</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-check"></i>
+                        </div>
+                        <div><a href="polles.xhtml">Polls</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-barcode"></i>
+                        </div>
+                        <div><a href="advertisement.xhtml">Advertisement</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="images.xhtml">Images</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-lock"></i>
+                        </div>
+                        <div> <h:form>
+                                <p:commandLink actionListener="#{AdMB.logout()}" style="margin-right:20px;" ajax="false">  
+                                    Logout 
+                                </p:commandLink>
+                            </h:form></div>
+
+                    </div>
+                </li>
+
+
+
+            </ul>
+        </div>
+        <p:panel  styleClass="mainPanel" >
+            <h:form id="form_addTopic">
+                <p:panel id="panel_addTopic" style="background-color: rgba(255,255,255,0.7);border-color:rgba(0,0,0,0.0); "   header="Add Topics">
+                    <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"/>
+                    <h:panelGrid columns="5" >
+                        <h:outputLabel value="New Kategory Name:"/>
+                        <h:inputText id="id" value="#{TMB.topic.name}" required="true"/>
+                        <h:outputLabel value="target ->"/>
+                        <p:tree value="#{TMB.root}" var="node" id="tree1" selectionMode="single"  selection="#{TMB.selectedNode}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>    
+                        </p:tree>  
+                        <p:commandButton value="Add"   ajax="false"  action="#{TMB.addTopics()}" async="true" update=":form_addTopic:panel_addTopic,:form_moveTopic:panel_moveTopic,:form_deletTopic:panel_deletTopic,
+                                         :form_viewTopArticles:panel_viewTopArticles,
+                                         :form_viewTopVidoes:panel_viewTopVidoes,
+                                         :form_viewTopSlides:panel_viewTopSlides,
+                                         :form_viewTopPolles:panel_viewTopPolles,
+                                         :form_viewTopTopics:panel_viewTopTopics"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+           <h:form id="form_showEditTopic">
+                <p:panel id="panel_showEditTopic" styleClass="topicPanel"   header="Add Topics">
+                    <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"/>
+                    <h:panelGrid columns="5" >
+                        <p:tree value="#{TMB.root10}" var="node" selectionMode="single"  selection="#{TMB.selectedNode8}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>    
+                        </p:tree>  
+                        <p:commandButton value="Edit"  action="#{TMB.showEditTopicForm()}" async="true" update=":form_editTopic:panel_editTopic"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_editTopic" enctype="multipart/form-data">
+                <p:panel id="panel_editTopic" header="Edit Topic" styleClass="topicPanel"  visible="#{TMB.voep}" >
+                    <h:panelGrid columns="2" style="margin-top:10px" id="pg_editWS"> 
+                        <h:outputLabel  style="display: none " value="Title:"/>
+                      <h:inputText  style="display: none " value="#{TMB.selectedTopic.id}" />
+                      <h:outputLabel value="Title:"/>
+                      <h:inputText value="#{TMB.selectedTopic.title}" />
+                      <h:outputLabel value="Key Words:"/>
+                      <h:inputTextarea value="#{TMB.selectedTopic.keyWords}" ></h:inputTextarea>
+                      <p:commandButton value="Edit"  action="#{TMB.editTopic()}" ajax="false" update=":form_addTopic:panel_addTopic,:form_moveTopic:panel_moveTopic,:form_deletTopic:panel_deletTopic,
+                                         :form_viewTopArticles:panel_viewTopArticles,
+                                         :form_viewTopVidoes:panel_viewTopVidoes,
+                                         :form_viewTopSlides:panel_viewTopSlides,
+                                         :form_viewTopPolles:panel_viewTopPolles,
+                                         :form_viewTopTopics:panel_viewTopTopics,
+                                         :form_showEditTopic:panel_showEditTopic"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_moveTopic">
+                <p:panel id="panel_moveTopic" styleClass="topicPanel"  header="Move Topics">
+                    <h:panelGrid columns="5" >
+                        <p:tree value="#{TMB.root2}" var="node" id="tree2"  selectionMode="multiple"  selection="#{TMB.selectedNodes}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">  
+                           <p:treeNode type="document" icon="ui-icon ui-icon-document">
+                                <div style="max-width: 200px;max-height: 100px"> <h:outputText value="#{node}" /></div>
+                            </p:treeNode>
+                            <p:treeNode type="video" icon="ui-icon ui-icon-video">
+                                <div style="max-width: 200px;max-height: 100px"><h:outputText value="#{node}" /></div>
+                            </p:treeNode> 
+                            <p:treeNode type="picture" icon="ui-icon ui-icon-image">
+                                <div style="max-width: 200px;max-height: 100px"> <h:outputText value="#{node}" /> </div>
+                            </p:treeNode>
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <div style="max-width: 200px;max-height: 100px"> <h:outputText value="#{node}"/>  </div>
+                            </p:treeNode> 
+                        </p:tree>
+                        <h:outputLabel value="target ->"/>
+                        <p:tree value="#{TMB.root3}" var="node" id="tree1" selectionMode="single"  selection="#{TMB.selectedNode2}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>    
+                        </p:tree>  
+                        <p:commandButton value="Move"  action="#{TMB.moveTopic()}" async="true"  update=":form_addTopic:panel_addTopic,:form_moveTopic:panel_moveTopic,:form_deletTopic:panel_deletTopic,
+                                         :form_viewTopArticles:panel_viewTopArticles,
+                                         :form_viewTopVidoes:panel_viewTopVidoes,
+                                         :form_viewTopSlides:panel_viewTopSlides,
+                                         :form_viewTopPolles:panel_viewTopPolles,
+                                         :form_viewTopTopics:panel_viewTopTopics,
+                                         :form_showEditTopic:panel_showEditTopic"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_deletTopic">
+                <p:panel id="panel_deletTopic" styleClass="topicPanel" header="Delete Topics">
+                    <h:panelGrid columns="5" >
+                        <p:tree value="#{TMB.root4}" var="node" id="tree2"  selectionMode="multiple"  selection="#{TMB.selectedNodes2}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">  
+                             <p:treeNode type="document" icon="ui-icon ui-icon-document">
+                                <div style="max-width: 200px;max-height: 100px"> <h:outputText value="#{node}" /></div>
+                            </p:treeNode>
+                            <p:treeNode type="video" icon="ui-icon ui-icon-video">
+                                <div style="max-width: 200px;max-height: 100px"><h:outputText value="#{node}" /></div>
+                            </p:treeNode> 
+                            <p:treeNode type="picture" icon="ui-icon ui-icon-image">
+                                <div style="max-width: 200px;max-height: 100px"> <h:outputText value="#{node}" /> </div>
+                            </p:treeNode>
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <div style="max-width: 200px;max-height: 100px"> <h:outputText value="#{node}"/>  </div>
+                            </p:treeNode> 
+                        </p:tree>
+                        <p:commandButton value="Delet"  action="#{TMB.deletTopic()}" async="true"  update=":form_addTopic:panel_addTopic,:form_moveTopic:panel_moveTopic,:form_deletTopic:panel_deletTopic,
+                                         :form_viewTopArticles:panel_viewTopArticles,
+                                         :form_viewTopVidoes:panel_viewTopVidoes,
+                                         :form_viewTopSlides:panel_viewTopSlides,
+                                         :form_viewTopPolles:panel_viewTopPolles,
+                                         :form_viewTopTopics:panel_viewTopTopics,
+                                         :form_showEditTopic:panel_showEditTopic"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_viewTopArticles">
+                <p:panel   id="panel_viewTopArticles"  styleClass="topicPanel" header="Top Articles">
+                    <h:panelGrid columns="2">
+                        <p:tree value="#{TMB.root5}" var="node" id="tree4" selectionMode="single"  selection="#{TMB.selectedNode3}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>  
+                        </p:tree>
+
+                        <p:commandButton value="add"  action="#{TMB.showTopArticles()}"  update=":form_editTopArticles:panel_editTopArticles"/>
+
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_editTopArticles">
+                <p:panel   id="panel_editTopArticles" styleClass="topicPanel" header="Top Articles" visible="#{TMB.votap}" closable="true" closeSpeed="500" >
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value=" Id:" style="visibility:hidden;height: 0px"/>
+                        <h:inputText value="#{TMB.selectedTopic.id}" style="visibility:hidden;height: 0px"/>
+                        <h:outputText value="Top news 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles1.value}" itemLabel="#{TMB.topNews1.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top news 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles2.value}" itemLabel="#{TMB.topNews2.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top news 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles3.value}" itemLabel="#{TMB.topNews3.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top news 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles4.value}" itemLabel="#{TMB.topNews4.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top news 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles5.value}" itemLabel="#{TMB.topNews5.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top news 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles6.value}" itemLabel="#{TMB.topNews6.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top news 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles7.value}" itemLabel="#{TMB.topNews7.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top news 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles8.value}" itemLabel="#{TMB.topNews8.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top news 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles9.value}" itemLabel="#{TMB.topNews9.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top news 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topArticles10.value}" itemLabel="#{TMB.topNews10.label}" />  
+                            <f:selectItems value="#{TMB.newss}"/>  
+                        </p:selectOneMenu>    
+
+
+                        <p:commandButton value="edit"  action="#{TMB.editTopNews()}"  update=":form_addTopic:panel_addTopic,:form_moveTopic:panel_moveTopic,:form_deletTopic:panel_deletTopic,
+                                         :form_viewTopArticles:panel_viewTopArticles,
+                                         :form_viewTopVidoes:panel_viewTopVidoes,
+                                         :form_viewTopSlides:panel_viewTopSlides,
+                                         :form_viewTopPolles:panel_viewTopPolles,
+                                         :form_viewTopTopics:panel_viewTopTopics,
+                                         :form_showEditTopic:panel_showEditTopic"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_viewTopVidoes">
+                <p:panel   id="panel_viewTopVidoes"  styleClass="topicPanel" header="Top Vidoes">
+                    <h:panelGrid columns="2">
+                        <p:tree value="#{TMB.root6}" var="node" id="tree5" selectionMode="single"  selection="#{TMB.selectedNode4}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>  
+                        </p:tree>
+
+                        <p:commandButton value="add"  action="#{TMB.showTopVideos()}"  update=":form_editTopVidoes:panel_editTopVidoes"/>
+
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_editTopVidoes">
+                <p:panel   id="panel_editTopVidoes" styleClass="topicPanel" header="Top Articles" visible="#{TMB.votvp}" closable="true" closeSpeed="500" >
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value=" Id:" style="visibility:hidden;height: 0px"/>
+                        <h:inputText value="#{TMB.selectedTopic.id}" style="visibility:hidden;height: 0px"/>
+                        <h:outputText value="Top news 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos1.value}" itemLabel="#{TMB.topVideos1.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top news 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos2.value}" itemLabel="#{TMB.topVideos2.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top news 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos3.value}" itemLabel="#{TMB.topVideos3.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top news 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos4.value}" itemLabel="#{TMB.topVideos4.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top news 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos5.value}" itemLabel="#{TMB.topVideos5.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top news 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos6.value}" itemLabel="#{TMB.topVideos6.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top news 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos7.value}" itemLabel="#{TMB.topVideos7.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top news 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos8.value}" itemLabel="#{TMB.topVideos8.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top news 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos9.value}" itemLabel="#{TMB.topVideos9.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top news 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topVideos10.value}" itemLabel="#{TMB.topVideos10.label}" />  
+                            <f:selectItems value="#{TMB.newss2}"/>  
+                        </p:selectOneMenu>    
+
+
+                        <p:commandButton value="edit"  action="#{TMB.editTopVidoes()}"  update=":form_addTopic:panel_addTopic,:form_moveTopic:panel_moveTopic,:form_deletTopic:panel_deletTopic,
+                                         :form_viewTopArticles:panel_viewTopArticles,
+                                         :form_viewTopVidoes:panel_viewTopVidoes,
+                                         :form_viewTopSlides:panel_viewTopSlides,
+                                         :form_viewTopPolles:panel_viewTopPolles,
+                                         :form_viewTopTopics:panel_viewTopTopics,
+                                         :form_showEditTopic:panel_showEditTopic"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_viewTopSlides">
+                <p:panel   id="panel_viewTopSlides"  styleClass="topicPanel" header="Top Slides">
+                    <h:panelGrid columns="2">
+                        <p:tree value="#{TMB.root7}" var="node" id="tree6" selectionMode="single"  selection="#{TMB.selectedNode5}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>  
+                        </p:tree>
+
+                        <p:commandButton value="add"  action="#{TMB.showTopSlides()}"  update=":form_editTopSlides:panel_editTopSlides"/>
+
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_editTopSlides">
+                <p:panel   id="panel_editTopSlides" styleClass="topicPanel" header="Top Slides" visible="#{TMB.votsp}" closable="true" closeSpeed="500" >
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value=" Id:" style="visibility:hidden;height: 0px"/>
+                        <h:inputText value="#{TMB.selectedTopic.id}" style="visibility:hidden;height: 0px"/>
+                        <h:outputText value="Top Slide 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides1.value}" itemLabel="#{TMB.topSlides1.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top Slide 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides2.value}" itemLabel="#{TMB.topSlides2.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top Slide 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides3.value}" itemLabel="#{TMB.topSlides3.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Slide 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides4.value}" itemLabel="#{TMB.topSlides4.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Slide 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides5.value}" itemLabel="#{TMB.topSlides5.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Slide 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides6.value}" itemLabel="#{TMB.topSlides6.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Slide 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides7.value}" itemLabel="#{TMB.topSlides7.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Slide 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides8.value}" itemLabel="#{TMB.topSlides8.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Slide 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides9.value}" itemLabel="#{TMB.topSlides9.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Slide 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topSlides10.value}" itemLabel="#{TMB.topSlides10.label}" />  
+                            <f:selectItems value="#{TMB.newss3}"/>  
+                        </p:selectOneMenu>    
+
+
+                        <p:commandButton value="edit"  action="#{TMB.editTopSlides()}"  update=":form_addTopic:panel_addTopic,:form_moveTopic:panel_moveTopic,:form_deletTopic:panel_deletTopic,
+                                         :form_viewTopArticles:panel_viewTopArticles,
+                                         :form_viewTopVidoes:panel_viewTopVidoes,
+                                         :form_viewTopSlides:panel_viewTopSlides,
+                                         :form_viewTopPolles:panel_viewTopPolles,
+                                         :form_viewTopTopics:panel_viewTopTopics,
+                                         :form_showEditTopic:panel_showEditTopic"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+
+
+            <h:form id="form_viewTopPolles">
+                <p:panel   id="panel_viewTopPolles"  styleClass="topicPanel" header="Top Polles">
+                    <h:panelGrid columns="2">
+                        <p:tree value="#{TMB.root8}" var="node" id="tree7" selectionMode="single"  selection="#{TMB.selectedNode6}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>  
+                        </p:tree>
+
+                        <p:commandButton value="add"  action="#{TMB.showTopPolles()}"  update=":form_editTopPolles:panel_editTopPolles"/>
+
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_editTopPolles">
+                <p:panel   id="panel_editTopPolles" styleClass="topicPanel" header="Top Polles" visible="#{TMB.votpp}" closable="true" closeSpeed="500" >
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value=" Id:" style="visibility:hidden;height: 0px"/>
+                        <h:inputText value="#{TMB.selectedTopic.id}" style="visibility:hidden;height: 0px"/>
+                        <h:outputText value="Top Poll 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles1.value}" itemLabel="#{TMB.topPolles1.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top Poll 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles2.value}" itemLabel="#{TMB.topPolles2.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top Poll 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles3.value}" itemLabel="#{TMB.topPolles3.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Poll 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles4.value}" itemLabel="#{TMB.topPolles4.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Poll 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles5.value}" itemLabel="#{TMB.topPolles5.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Poll 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles6.value}" itemLabel="#{TMB.topPolles6.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Poll 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles7.value}" itemLabel="#{TMB.topPolles7.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Poll 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles8.value}" itemLabel="#{TMB.topPolles8.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Poll 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles9.value}" itemLabel="#{TMB.topPolles9.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Poll 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topPolles10.value}" itemLabel="#{TMB.topPolles10.label}" />  
+                            <f:selectItems value="#{TMB.newss4}"/>  
+                        </p:selectOneMenu>    
+
+
+                        <p:commandButton value="edit"  action="#{TMB.editTopPolles()}"  update=":form_addTopic:panel_addTopic,:form_moveTopic:panel_moveTopic,:form_deletTopic:panel_deletTopic,
+                                         :form_viewTopArticles:panel_viewTopArticles,
+                                         :form_viewTopVidoes:panel_viewTopVidoes,
+                                         :form_viewTopSlides:panel_viewTopSlides,
+                                         :form_viewTopPolles:panel_viewTopPolles,
+                                         :form_viewTopTopics:panel_viewTopTopics,
+                                         :form_showEditTopic:panel_showEditTopic"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+
+
+            <h:form id="form_viewTopTopics">
+                <p:panel   id="panel_viewTopTopics"  styleClass="topicPanel" header="Top Topics">
+                    <h:panelGrid columns="2">
+                        <p:tree value="#{TMB.root9}" var="node" id="tree7" selectionMode="single"  selection="#{TMB.selectedNode7}" style="background-color: rgba(255,255,255,0.5);border-color:rgba(0,0,0,0.0); ">
+                            <p:treeNode icon="ui-icon ui-icon-folder-open">  
+                                <h:outputText value="#{node}"/>  
+                            </p:treeNode>  
+                        </p:tree>
+                        <p:commandButton value="add"  action="#{TMB.showTopTopics()}"  update=":form_editTopTopics:panel_editTopTopics"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="form_editTopTopics"> 
+                <p:panel   id="panel_editTopTopics"   styleClass="topicPanel" header="Top Topics" visible="#{TMB.vottp}" closable="true" closeSpeed="500" >
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value=" Id:" style="visibility:hidden;height: 0px"/>
+                        <h:inputText value="#{TMB.selectedTopic.id}" style="visibility:hidden;height: 0px"/>
+                        <h:outputText value="Top Topic 1:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news1}" id="wq1" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic1.value}" itemLabel="#{TMB.topTopic1.label}" />  
+                            <f:selectItems value="#{TMB.newss5}"/>  
+                        </p:selectOneMenu>  
+                        <h:outputText value="Top Topic 2:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news2}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic2.value}" itemLabel="#{TMB.topTopic2.label}" />  
+                            <f:selectItems value="#{TMB.newss5}"/>  
+                        </p:selectOneMenu>   
+                        <h:outputText value="Top Topic 3:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news3}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic3.value}" itemLabel="#{TMB.topTopic3.label}" />  
+                            <f:selectItems value="#{TMB.newss5}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Topic 4:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news4}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic4.value}" itemLabel="#{TMB.topTopic4.label}" />  
+                            <f:selectItems value="#{TMB.newss5}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Topic 5:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news5}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic5.value}" itemLabel="#{TMB.topTopic5.label}" />  
+                            <f:selectItems value="#{TMB.newss5}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Topic 6:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news6}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic6.value}" itemLabel="#{TMB.topTopic6.label}" />  
+                            <f:selectItems value="#{TMB.newss5}"/>  
+                        </p:selectOneMenu>    
+                        <h:outputText value="Top Topic 7:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news7}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic7.value}" itemLabel="#{TMB.topTopic7.label}" />  
+                            <f:selectItems value="#{TMB.newss5}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Topic 8:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news8}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic8.value}" itemLabel="#{TMB.topTopic8.label}" />  
+                            <f:selectItems value="#{TMB.newss5}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Topic 9:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news9}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic9.value}" itemLabel="#{TMB.topTopic9.label}" />  
+                            <f:selectItems value="#{WMB.newss5}"/>  
+                        </p:selectOneMenu>     
+                        <h:outputText value="Top Topic 10:" />  
+                        <p:selectOneMenu  immediate="true" value="#{TMB.news10}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemValue="#{TMB.topTopic10.value}" itemLabel="#{TMB.topTopic10.label}" />  
+                            <f:selectItems value="#{TMB.newss5}"/>  
+                        </p:selectOneMenu>    
+
+
+                        <p:commandButton value="edit"  action="#{TMB.editTopTopics()}"  update=":form_addTopic:panel_addTopic,:form_moveTopic:panel_moveTopic,:form_deletTopic:panel_deletTopic,
+                                         :form_viewTopArticles:panel_viewTopArticles,
+                                         :form_viewTopVidoes:panel_viewTopVidoes,
+                                         :form_viewTopSlides:panel_viewTopSlides,
+                                         :form_viewTopPolles:panel_viewTopPolles,
+                                         :form_viewTopTopics:panel_viewTopTopics,
+                                         :form_showEditTopic:panel_showEditTopic"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+
+
+
+
+
+
+        </p:panel>
+
+
+    </h:body>
+
+</html>

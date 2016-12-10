@@ -1,0 +1,244 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome-ie.css" rel="stylesheet" type="text/css" />
+
+        <link href='http://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'/>
+
+        <title>Add Advertisement</title>
+    </h:head>
+    <h:body> 
+        <h:outputStylesheet name="cssLayout.css" library="css"/>
+        <div class="blueBack">
+
+
+        </div>
+        <div id="left">
+            <ul id="ul_menu">
+
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-home"></i> 
+                        </div>
+                        <div><a href="index.xhtml">Home</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-user"></i></div>
+                        <div><a href="admins.xhtml">Admins</a></div>
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-folder-close"></i></div>
+                        <div><a href="topics.xhtml">Topics</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-pencil"></i>
+                        </div>
+                        <div><a href="articles.xhtml">Articles</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-link"></i>
+                        </div>
+                        <div><a href="links.xhtml">Links</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-file"></i>
+                        </div>
+                        <div><a href="videos.xhtml">Videous</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="slides.xhtml">Slides</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-check"></i>
+                        </div>
+                        <div><a href="polles.xhtml">Polls</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-barcode"></i>
+                        </div>
+                        <div><a href="advertisement.xhtml">Advertisement</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="images.xhtml">Images</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-lock"></i>
+                        </div>
+                        <div> <h:form>
+                                <p:commandLink actionListener="#{AdMb.logout()}" style="margin-right:20px;" ajax="true">  
+                                    Logout 
+                                </p:commandLink>
+                            </h:form></div>
+
+                    </div>
+                </li>
+
+
+
+            </ul>
+        </div>
+
+        <p:panel styleClass="mainPanel">
+            <h:form id="form_selectAdvertisement"  enctype="multipart/form-data">
+                <p:panel id="panelSelectAdvertisement" style="background-color: rgba(255,255,255,0.7);border-color:rgba(0,0,0,0.0); " >
+                    <h:panelGrid columns="1">
+                    <p:dataTable var="Advertisement" value="#{AdvMB.advertisements}" id="table_Advertisements" selectionMode="single" selection="#{AdvMB.selectedAdv}" rowKey="#{Advertisement.id}"  paginator="true" rows="10" style="margin-bottom:10px; ">
+                        <p:column headerText="Id" filterBy="#{Advertisement.id}"> 	
+                            <h:outputText value="#{Advertisement.id}"  style="color:#{AdvMB.color(Advertisement)} "/> 	</p:column> 
+                        <p:column headerText="Title" filterBy="#{Advertisement.title}"> 	
+                            <h:outputText value="#{Advertisement.title}"  style="color:#{AdvMB.color(Advertisement)} "/>	</p:column> 
+                        <p:column headerText="Type" filterBy="#{Advertisement.type}"> 		
+                            <h:outputText value="#{Advertisement.type}"  style="color:#{AdvMB.color(Advertisement)} "/>	</p:column> 
+                        <p:column headerText="Type" filterBy="#{Advertisement.endDate}"> 		
+                            <h:outputText value="#{Advertisement.endDate}"  style="color:#{AdvMB.color(Advertisement)} ">  
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm" />  
+                            </h:outputText>	</p:column> 
+
+                    </p:dataTable>
+                   
+                        <h:panelGrid columns="5">
+                            <p:commandButton value="add"    actionListener="#{AdvMB.showAddAdvertisement()}"      process="@this,:form_selectAdvertisement" update=":panel_addAdvertisement"/>
+                            <p:commandButton value="show"   actionListener="#{AdvMB.showAdvertisement()}" process="@this,:form_selectAdvertisement" update=":form_showAdvertisement:panel_showAdvertisement"/> 
+                            <p:commandButton value="edit"   actionListener="#{AdvMB.showEditAdvertisementForm()}" process="@this,:form_selectAdvertisement" update=":form_editAdvertisement:panel_editAdvertisement"/> 
+                            <p:commandButton value="delete" ajax="false" actionListener="#{AdvMB.deletAdvertisement()}"        process="@this,:form_selectAdvertisement:panelSelectAdvertisement" update=":form_selectAdvertisement:panelSelectAdvertisement:table_Advertisements"/>
+                            <p:commandButton value="delete old" ajax="false" actionListener="#{AdvMB.deletOldAdvertisement()}"        process="@this,:form_selectAdvertisement:panelSelectAdvertisement" update=":form_selectAdvertisement:panelSelectAdvertisement:table_Advertisements"/>
+                        </h:panelGrid>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <p:panel style="background-color: rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.0); "  header="Add Advertisement"  id="panel_addAdvertisement"  visible="#{AdvMB.voap}" closable="true" closeSpeed="500" >
+                <h:form enctype="multipart/form-data" id="form_addAdvertisement"> 
+                    <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"/>
+                    <h:panelGrid columns="2" style="margin-top:10px">  
+
+                        
+                        <h:outputLabel value="Advertisement Title:"/>
+                        <p:inputText value="#{AdvMB.newAdv.title}"/>
+                         <h:outputLabel value="Url:"/>
+                         <p:inputText value="#{AdvMB.newAdv.url}"/>
+                        <h:outputText value="Type:" />  
+                        <p:selectOneMenu  immediate="true" value="#{AdvMB.newAdv.type}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemLabel="Banner: 468 x 60" itemValue="Banner" />  
+                            <f:selectItem itemLabel="Leaderboard: 728 x 90" itemValue="Leaderboard" />  
+                            <f:selectItem itemLabel="Square: 200 x 200" itemValue="Square" />   
+                        </p:selectOneMenu> 
+                        <h:outputText value="End Date:" />  
+                        <p:calendar value="#{AdvMB.newAdv.endDate}" pattern="MM/dd/yyyy HH:mm:ss"  
+                                    stepHour="2" stepMinute="10" stepSecond="10"/> 
+
+                        <h:outputLabel value="Advertisement file:"/>
+                        <p:fileUpload mode="simple" value="#{AdvMB.file}"  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|swf|PNG|GIF|JPG|JPEG|SWF)$/" id="uploadButton"/> 
+                        <h:outputText value="Power:" />  
+                        <p:spinner value="#{AdvMB.newAdv.power}"/>
+                        <h:outputText value="" /> 
+                        <p:commandButton id="addButton" value="Submit"  action="#{AdvMB.addAdvertisement()}" icon="ui-icon-disk" ajax="false"  update=":form_selectAdvertisement:panelSelectAdvertisement:table_Advertisements"/>  
+                    </h:panelGrid>
+                </h:form> 
+            </p:panel>
+
+            <h:form id="form_editAdvertisement">
+                <p:panel style="background-color: rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.0); "  header="Edit Advertisement"  id="panel_editAdvertisement"  visible="#{AdvMB.voep}" closable="true" closeSpeed="500" >
+                    <h:panelGrid columns="2" style="margin-top:10px">  
+                        <h:outputLabel value="Advertisement Title:"  style="display: none"/>
+                        <p:inputText style="display: none" value="#{AdvMB.selectedAdv.id}"/>
+                        <h:outputLabel value="Advertisement Title:"/>
+                        <p:inputText id="articlename" value="#{AdvMB.selectedAdv.title}"/>
+                         <h:outputLabel value="Url:"/>
+                         <p:inputText value="#{AdvMB.selectedAdv.url}"/>
+                        <h:outputText value="Type:" />  
+                        <p:selectOneMenu  immediate="true" value="#{AdvMB.selectedAdv.type}" effect="fade" style="width:160px"  filter="true" filterMatchMode="startsWith">  
+                            <f:selectItem itemLabel="Banner: 468 x 60" itemValue="Banner" />  
+                            <f:selectItem itemLabel="Leaderboard: 728 x 90" itemValue="Leaderboard" />  
+                            <f:selectItem itemLabel="Square: 200 x 200" itemValue="Square" />   
+                        </p:selectOneMenu> 
+                        <h:outputText value="End Date:" />  
+                        <p:calendar value="#{AdvMB.selectedAdv.endDate}" pattern="MM/dd/yyyy HH:mm:ss"  
+                                    stepHour="2" stepMinute="10" stepSecond="10"/> 
+
+                        <h:outputLabel value="Advertisement file:"/>
+                        <p:fileUpload mode="simple" value="#{AdvMB.file2}"  allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|swf|PNG|GIF|JPG|JPEG|SWF)$/" id="uploadButton"/> 
+                        <h:outputText value="Power:" />  
+                        <p:spinner value="#{AdvMB.selectedAdv.power}"/>
+                        <h:outputText value="" /> 
+                        <p:commandButton id="editButton" value="Submit"  action="#{AdvMB.editAdvertisement()}" icon="ui-icon-disk" ajax="false"  process="@this,:form_editAdvertisement" update=":form_selectAdvertisement:panelSelectAdvertisement:table_Advertisements"/>
+                    </h:panelGrid>
+
+                </p:panel>
+            </h:form>
+
+            <h:form id="form_showAdvertisement">
+                <p:panel style="background-color: rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.0); "  header="Edit Advertisement"  id="panel_showAdvertisement"  visible="#{AdvMB.vosp}" closable="true" closeSpeed="500" >
+                    <h:panelGrid columns="2" style="margin-top:10px">  
+                        <h:link outcome="#{AdvMB.selectedAdv.url}" > 
+                            <object type="application/x-shockwave-flash" data="../resources/advertisements/#{AdvMB.selectedAdv.index}" style="width:#{AdvMB.selectedAdv.width};height:#{AdvMB.selectedAdv.height};display:#{AdvMB.selectedAdv.isSwf} ">
+                        <param name="movie" value="../resources/advertisements/#{AdvMB.selectedAdv.index}" /></object> 
+                            <img src="../resources/advertisements/#{AdvMB.selectedAdv.index}" style="width:#{AdvMB.selectedAdv.width};height:#{AdvMB.selectedAdv.height};display:#{AdvMB.selectedAdv.isnSwf} "/>
+                        </h:link>>
+                    </h:panelGrid>
+
+                </p:panel>
+            </h:form>
+
+
+        </p:panel>
+
+
+    </h:body>
+
+</html>

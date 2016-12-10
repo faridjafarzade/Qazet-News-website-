@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome.css" rel="stylesheet" type="text/css" />
+        <link href="./../resources/css/font-awesome-ie.css" rel="stylesheet" type="text/css" />
+        <link href='http://fonts.googleapis.com/css?family=Julius+Sans+One' rel='stylesheet' type='text/css'/>
+        <title>Admin Page</title>
+    </h:head>
+    <h:body> 
+        <h:outputStylesheet name="cssLayout.css" library="css"/>
+
+        <div class="blueBack">
+
+
+        </div>
+        <div id="left">
+            <ul id="ul_menu">
+
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-home"></i> 
+                        </div>
+                        <div><a href="index.xhtml">Home</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-user"></i></div>
+                        <div><a href="admins.xhtml">Admins</a></div>
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="div_Menu">
+                        <div><i class="icon-folder-close"></i></div>
+                        <div><a href="topics.xhtml">Topics</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-pencil"></i>
+                        </div>
+                        <div><a href="articles.xhtml">Articles</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-link"></i>
+                        </div>
+                        <div><a href="links.xhtml">Links</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-file"></i>
+                        </div>
+                        <div><a href="videos.xhtml">Videous</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="slides.xhtml">Slides</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-check"></i>
+                        </div>
+                        <div><a href="polles.xhtml">Polls</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-barcode"></i>
+                        </div>
+                        <div><a href="advertisement.xhtml">Advertisement</a></div>
+
+                    </div>
+                </li>
+               <li>
+                    <div class="div_Menu">
+                        <div>
+                           <i class="icon-picture"></i>
+                        </div>
+                        <div><a href="images.xhtml">Images</a></div>
+
+                    </div>
+                </li>
+                <li>
+                    <div class="div_Menu">
+                        <div>
+                            <i class="icon-lock"></i>
+                        </div>
+                        <div> <h:form>
+                                <p:commandLink actionListener="#{AdMB.logout()}" style="margin-right:20px;" ajax="false">  
+                                    Logout 
+                                </p:commandLink>
+                            </h:form></div>
+
+                    </div>
+                </li>
+
+
+
+            </ul>
+        </div>
+        <p:panel  styleClass="mainPanel" >
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
+            <h:form id="AddAdminForm" >
+                <p:panel id="panelAddAdmin" header="Add Admin" visible="#{AdMB.currentAdmin.editor}" style="margin:0px 0px 10px 0px;background-color: rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.0); ">
+
+                    <h:outputText value=" " />
+
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Name: "/>
+                        <p:inputText value="#{AdMB.admin.name}"/>
+
+                        <h:outputText value="Password 1: " />
+                        <p:password value="#{AdMB.password1}"  feedback="true" label="Password 1" />
+
+                        <h:outputText value="Password 2: " />
+                        <p:password value="#{AdMB.password2}" id="password2" feedback="true" promptLabel="Please enter password again" label="Password 1"/>
+
+                        <h:outputText value="Email: "/>
+                        <p:inputText value="#{AdMB.admin.email}"/>
+
+                        <h:outputText value="Editor: "/>
+                        <p:selectBooleanCheckbox value="#{AdMB.admin.editor}"/>
+                        <h:outputText value="Are you sure ? "/>
+                        <p:commandButton value="Submit"  id="addAdmin" actionListener="#{AdMB.creatAdmin()}" update=":EditAdminForm:table_Admins,:growl"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+            <h:form id="EditAdminForm">
+                <p:dataTable var="Admin" value="#{AdMB.admins}" id="table_Admins" selectionMode="single" selection="#{AdMB.selectedAdmin}" rowKey="#{Admin.id}" paginator="true" rows="10" style="margin-bottom:10px; ">
+                    <p:ajax event="rowSelect" update=":EditAdminForm:panelEditAdmin"  listener="#{AdMB.showVoep}"/>
+
+
+                    <p:column headerText="Id" filterBy="#{Admin.id}"> 	
+                        <h:outputText value="#{Admin.id}" /> 	</p:column> 
+                    <p:column headerText="Name" filterBy="#{Admin.name}"> 	
+                        <h:outputText value="#{Admin.name}" /> 	</p:column> 
+                     <p:column headerText="Email" filterBy="#{Admin.email}"> 			
+                        <h:outputText value="#{Admin.email}" /> 	</p:column> 
+
+                </p:dataTable>
+
+                <p:panel id="panelEditAdmin" header="Add New Admin" visible="#{AdMB.voep}" style="margin-bottom:10px;background-color: rgba(255,255,255,0.3);border-color:rgba(0,0,0,0.0); ">
+
+                    <h:outputText value=" " />
+
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Name: "/>
+                        <p:inputText value="#{AdMB.selectedAdmin.name}" id="editName"/>
+
+                        <h:outputText value="Current Password: " />
+                        <p:password value="#{AdMB.oldPassword}"   label="Password " />
+
+                        <h:outputText value="New Password 1: " />
+                        <p:password value="#{AdMB.password3}"  feedback="true" label="Password" />
+
+                        <h:outputText value="New Password 2: " />
+                        <p:password value="#{AdMB.password4}"  feedback="true" promptLabel="Please enter password again" label="Password"/>
+
+                        <h:outputText value="Email: "/>
+                        <p:inputText value="#{AdMB.selectedAdmin.email}" id="editEmail"/>
+
+                        <h:outputText value="Editor: "/>
+                        <p:selectBooleanCheckbox value="#{AdMB.selectedAdmin.editor}" id="editEditor"/>
+                        <h:outputText value="Save "/>
+                        <p:commandButton value="Submit"  id="ajax2"  
+                                         actionListener="#{AdMB.editAdmin()}" update=":EditAdminForm:table_Admins,:growl" process="@this,:EditAdminForm"/>
+                        <h:outputText value="Delet   "/>
+                        <p:commandButton value="Submit"  id="ajax3"  
+                                         actionListener="#{AdMB.deletAdmin()}" update=":EditAdminForm:table_Admins,:growl" process="@this,:EditAdminForm"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </p:panel>
+
+
+    </h:body>
+
+</html>
